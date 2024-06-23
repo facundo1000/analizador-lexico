@@ -21,7 +21,7 @@ public class Lexer {
             char currentChar = input.charAt(position); // if ( a > b ) { a = 1 ; }
             if (Character.isWhitespace(currentChar)) {
                 position++;
-                tokens.add(new Token(TokenType.WHITESPACE, String.valueOf(currentChar)));
+                tokens.add(new Token(TokenType.ESPACIO_BLANCO, String.valueOf(currentChar)));
             } else if (Character.isDigit(currentChar)) {
                 tokens.add(readNumber());
             } else if (Character.isLetter(currentChar)) {
@@ -38,7 +38,7 @@ public class Lexer {
         while (position < length && Character.isDigit(input.charAt(position))) {
             buffer.append(input.charAt(position++));
         }
-        return new Token(TokenType.NUMBER, buffer.toString());
+        return new Token(TokenType.NUMERO, buffer.toString());
     }
 
     private Token readIdentifierOrKeyword() {
@@ -48,19 +48,30 @@ public class Lexer {
         }
         String value = buffer.toString();
         if (isKeyword(value)) {
-            return new Token(TokenType.KEYWORD, value);
+            return new Token(TokenType.PALABRA_RESERVADA, value);
         } else {
-            return new Token(TokenType.IDENTIFIER, value);
+            return new Token(TokenType.SIMBOLO_ESPECIAL, value);
         }
     }
 
     private boolean isKeyword(String value) {
-        // Definir tus palabras clave aquí
-        return value.equals("if") || value.equals("else") || value.equals("while");
+        // Definicion de palabras reservadas
+        return value.equalsIgnoreCase("programa") ||
+                value.equalsIgnoreCase("variables") ||
+                value.equalsIgnoreCase("entero") ||
+                value.equalsIgnoreCase("funcion") ||
+                value.equalsIgnoreCase("inicio") ||
+                value.equalsIgnoreCase("fin") ||
+                value.equalsIgnoreCase("si") ||
+                value.equalsIgnoreCase("sino") ||
+                value.equalsIgnoreCase("leer") ||
+                value.equalsIgnoreCase("escribir") ||
+                value.equalsIgnoreCase("modulo")||
+                value.equalsIgnoreCase("entonces");
     }
 
     private Token readOperator() {
         char currentChar = input.charAt(position++);
-        return new Token(TokenType.OPERATOR, String.valueOf(currentChar));
+        return new Token(TokenType.SIMBOLO_ESPECIAL, String.valueOf(currentChar));
     }
 }

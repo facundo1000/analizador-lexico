@@ -1,10 +1,8 @@
 package dev.fmartinez;
 
 public enum TokenType {
-    KEYWORD,
-    IDENTIFIER,
-    NUMBER,
-    OPERATOR,
-    WHITESPACE,
-    UNKNOWN
+    PALABRA_RESERVADA,
+    SIMBOLO_ESPECIAL,
+    NUMERO,
+    ESPACIO_BLANCO
 }
