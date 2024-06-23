@@ -1,0 +1,13 @@
+programa ejemplo(entrada, salida);
+variables x, y: entero;
+funcion mcd(a, b: entero): entero;
+inicio
+   	si b = 0 entonces
+        	mcd:= a
+   	sino
+   	   	mcd := mcd(b, a modulo b)
+fin;
+inicio
+   	leer(x, y);
+   	escribir(mcd(x, y))
+fin
