@@ -15,6 +15,10 @@ public class Lexer {
         this.length = input.length();
     }
 
+    /**
+     * Tokeniza la entrada
+     * @return Lista de tokens
+     */
     public List<Token> tokenize() {
         List<Token> tokens = new ArrayList<>();
         while (position < length) {
@@ -34,7 +38,10 @@ public class Lexer {
     }
 
 
-
+    /**
+     * Lee un número de la entrada
+     * @return Token con el número leído
+     */
     private Token readNumber() {
         StringBuilder buffer = new StringBuilder();
         while (position < length && Character.isDigit(input.charAt(position))) {
@@ -52,20 +59,20 @@ public class Lexer {
 
         if (isKeyword(value)) {
             return new Token(TokenType.PALABRA_RESERVADA, value);
-        } else if (value.matches("[|(),:;+\\-*/%=]")) {
+        } else if (value.matches("[|(),:;+\\-*/%=]")) { //Identifica si es un simbolo especial
             return new Token(TokenType.SIMBOLO_ESPECIAL, value);
         }
-        else if (value.matches("[a-zA-Z][a-zA-Z0-9]*")){
+        else if (value.matches("[a-zA-Z][a-zA-Z0-9]*")){ //Identifica si es un identificador
             return new Token(TokenType.IDENTIFICADOR, value);
         }
         else {
-            return new Token(TokenType.DESCONOCIDO, value);
+            return new Token(TokenType.DESCONOCIDO, value); // Si no es ninguno de los anteriores, es desconocido
         }
     }
 
     private boolean isKeyword(String value) {
         // Definicion de palabras reservadas
-        return value.matches("programa|variables|entero|funcion|inicio|fin|si|sino|leer|escribir|modulo|entonces");
+        return value.matches("programa|variables|entero|funcion|inicio|fin|si|sino|leer|escribir|modulo|entonces"); // Palabras reservadas
     }
 
     private Token readOperator() {
