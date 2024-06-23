@@ -56,18 +56,7 @@ public class Lexer {
 
     private boolean isKeyword(String value) {
         // Definicion de palabras reservadas
-        return value.equalsIgnoreCase("programa") ||
-                value.equalsIgnoreCase("variables") ||
-                value.equalsIgnoreCase("entero") ||
-                value.equalsIgnoreCase("funcion") ||
-                value.equalsIgnoreCase("inicio") ||
-                value.equalsIgnoreCase("fin") ||
-                value.equalsIgnoreCase("si") ||
-                value.equalsIgnoreCase("sino") ||
-                value.equalsIgnoreCase("leer") ||
-                value.equalsIgnoreCase("escribir") ||
-                value.equalsIgnoreCase("modulo")||
-                value.equalsIgnoreCase("entonces");
+        return value.matches("programa|variables|entero|funcion|inicio|fin|si|sino|leer|escribir|modulo|entonces");
     }
 
     private Token readOperator() {
