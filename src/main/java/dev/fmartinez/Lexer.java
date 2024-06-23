@@ -18,7 +18,7 @@ public class Lexer {
     public List<Token> tokenize() {
         List<Token> tokens = new ArrayList<>();
         while (position < length) {
-            char currentChar = input.charAt(position); // if ( a > b ) { a = 1 ; }
+            Character currentChar = input.charAt(position); // if ( a > b ) { a = 1 ; }
             if (Character.isWhitespace(currentChar)) {
                 position++;
                 tokens.add(new Token(TokenType.ESPACIO_BLANCO, String.valueOf(currentChar)));
@@ -32,6 +32,8 @@ public class Lexer {
         }
         return tokens;
     }
+
+
 
     private Token readNumber() {
         StringBuilder buffer = new StringBuilder();
@@ -47,10 +49,17 @@ public class Lexer {
             buffer.append(input.charAt(position++));
         }
         String value = buffer.toString();
+
         if (isKeyword(value)) {
             return new Token(TokenType.PALABRA_RESERVADA, value);
-        } else {
+        } else if (value.matches("[|(),:;+\\-*/%=]")) {
             return new Token(TokenType.SIMBOLO_ESPECIAL, value);
+        }
+        else if (value.matches("[a-zA-Z][a-zA-Z0-9]*")){
+            return new Token(TokenType.IDENTIFICADOR, value);
+        }
+        else {
+            return new Token(TokenType.DESCONOCIDO, value);
         }
     }
 
@@ -60,7 +69,7 @@ public class Lexer {
     }
 
     private Token readOperator() {
-        char currentChar = input.charAt(position++);
+        Character currentChar = input.charAt(position++);
         return new Token(TokenType.SIMBOLO_ESPECIAL, String.valueOf(currentChar));
     }
 }
